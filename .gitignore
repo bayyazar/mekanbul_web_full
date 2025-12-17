@@ -1,0 +1,25 @@
+# Bağımlılıklar (Bunlar çok yer kaplar, yüklenmemeli)
+node_modules/
+jspm_packages/
+
+# Çevresel Değişkenler (Şifrelerin olduğu dosya, asla yüklenmemeli!)
+.env
+.env.test
+.env.production
+
+# Loglar
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# Editör Dosyaları
+.idea/
+.vscode/
+*.swp
+*.swo
