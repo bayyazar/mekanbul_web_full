@@ -4,8 +4,10 @@ import React from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom"; // Router hook'ları
 import VenueDataService from "../services/VenueDataService"; // API servisi
 import { useDispatch } from "react-redux"; // Redux state yönetimi
-import Venue from "./Venue";
-import Modal from "./Modal";
+import { useState } from "react";
+import Modal from "./Modal"; // path projene göre değişebilir
+
+
 
 // Yorum ekleme sayfası bileşeni
 function AddComment() {
@@ -20,8 +22,12 @@ function AddComment() {
   
   // Sayfa yönlendirme işlemleri için kullanılır
   const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+
+
   const handleModalClose = () => {
-    setShowModal (false);
+    setShowModal(false);
     navigate(`/venue/${id}`);
   };
   
@@ -38,14 +44,15 @@ function AddComment() {
           author: evt.target.elements.author.value, // Yorum yazarı
           text: evt.target.elements.text.value, // Yorum metni
           rating: evt.target.elements.rating.value // Yorum puanı
-        }       
-          VenueDataService.addComment(id, newComment).then((response) => {
-            //Yorum eklendikten sonra mekan detay sayfasına yönlendir
-        dispatch({type: "ADD_COMMENT_SUCCESS", payload: response.data});
-        navigate(`/venue/${id}`);
-      }).catch(() => {
-        dispatch({type: "ADD_COMMENT_FAILURE"});
-      });
+        }
+        VenueDataService.addComment(id, newComment).then((response) => {
+          // Yorum başarıyla eklendiyse Redux state'i güncelle
+          dispatch({ type:  "ADD_COMMENT_SUCCESS"});
+          // Mekan detay sayfasına yönlendir
+          setShowModal(true);
+        }).catch((e) => {
+          dispatch({ type: "ADD_COMMENT_FAILURE"})
+        });
       }
   };
 
@@ -108,23 +115,20 @@ function AddComment() {
             </div>
             
             {/* Form gönderme butonu */}
-            <button className="btn btn-default pull-right">Yorum Ekle</button>
+            <button onClick={() => setShowModal(true)} type="submit" className="btn btn-default pull-right">Yorum Ekle</button>
           </form>
         </div>
        
       </div>
       <Modal
-      show ={showModal}
-      onClose={handleModalClose}
-      title="Tebrikler!"
-      message="Yorumunuz yayınlandı."
+      show = {showModal}
+      onClose = {handleModalClose}
+      title = "Tebrikler!"
+      message = "Yorumunuz yayınlandı!"
       />
     </>
   );
-  
-
 }
-
 
 // Bileşeni dışa aktar
 export default AddComment;
