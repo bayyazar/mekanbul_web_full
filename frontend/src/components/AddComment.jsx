@@ -20,6 +20,10 @@ function AddComment() {
   
   // Sayfa yönlendirme işlemleri için kullanılır
   const navigate = useNavigate();
+  const handleModalClose = () => {
+    setShowModal (false);
+    navigate(`/venue/${id}`);
+  };
   
   // Form gönderildiğinde çalışan fonksiyon
   const onSubmit = (evt) => {
@@ -117,10 +121,7 @@ function AddComment() {
       />
     </>
   );
-  const handleModalClose = () => {
-    setShowModal (false);
-    navigate(`/venue/${id}`);
-  };
+  
 
 }
 
