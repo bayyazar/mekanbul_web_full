@@ -46,7 +46,7 @@ const Home = () => {
   };
   const filteredVenues = Array.isArray(venues) ? venues.filter((venue) => {
     (venue) => 
-      venue.name.toLowerCase().includes(searchVenue.toLowerCase());
+      venue.name.toLowerCase().includes(searchVenue.toLowerCase()) ||
       venue.address.toLowerCase().includes(searchVenue.toLowerCase());
   }) : [];
   // Bileşen yüklendiğinde çalışacak (şu an boş)
