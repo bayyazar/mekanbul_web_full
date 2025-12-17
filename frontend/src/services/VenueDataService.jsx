@@ -15,8 +15,8 @@ class VenueDataService {
   // Belirli bir mekanı ID'ye göre getir
   // id: Mekan ID'si
   // Örnek: getVenue(123) -> /venues/123
-  getVenue(_id) {
-    return http.get(`venues/${_id}`);
+  getVenue(id) {
+    return http.get(`venues/${id}`);
   }
 
   // Yeni mekan ekle - Kimlik doğrulama gerektirir
