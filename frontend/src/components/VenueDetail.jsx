@@ -9,6 +9,7 @@ import React from "react";
 import { useParams } from "react-router-dom"; // URL parametrelerini almak için
 import venuesData from "../data/venues.json"; // Mekan verileri (JSON dosyasından)
 import { useSelector, useDispatch } from "react-redux";
+import venueDataService from "../services/VenueDataService";
 
 // Mekan detay sayfası bileşeni - Seçilen mekanın tüm bilgilerini gösterir
 const VenueDetail = () => {
