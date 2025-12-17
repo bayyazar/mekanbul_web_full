@@ -14,7 +14,7 @@ const Venue = ({venue}) => {
           {/* Mekan adı ve puanlama */}
           <h4>
             {/* Tıklanabilir mekan adı - Detay sayfasına yönlendirir */}
-            <NavLink to={`/venue/${venue._id}`}>{venue.name} </NavLink>
+            <NavLink to={`/venue/${venue.id}`}>{venue.name} </NavLink>
             {/* Yıldız puanlama göster */}
             <Rating rating={venue.rating} />
           </h4>
