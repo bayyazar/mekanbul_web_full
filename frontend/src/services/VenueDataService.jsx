@@ -32,9 +32,9 @@ class VenueDataService {
   
   // Yorum ekleme fonksiyonu (AddComment.jsx'te kullanılır)
   // Not: Bu fonksiyon şu an kodda yok ama AddComment.jsx'te kullanılıyor
-  // addComment(id, comment) {
-  //   return http.post(`/venues/${id}/comments`, comment);
-  // }
+  addComment(id, comment) {
+     return http.post(`/venues/${id}/comments`, comment);
+  }
 }
 
 // Sınıfın bir instance'ını oluştur ve dışa aktar

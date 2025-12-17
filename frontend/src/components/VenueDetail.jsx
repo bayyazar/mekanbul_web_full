@@ -151,7 +151,7 @@ const VenueDetail = () => {
                   */}
                   <NavLink
                     className="btn btn-default pull-right"
-                    to={`/venue/${id}/comment/new`}
+                    to={`/venue/${_id}/comment/new`}
                     state={{ name: venue.name }}
                   >
                     Yorum Ekle{" "}
