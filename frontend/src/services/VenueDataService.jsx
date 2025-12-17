@@ -15,7 +15,7 @@ class VenueDataService {
   // Belirli bir mekanı ID'ye göre getir
   // id: Mekan ID'si
   // Örnek: getVenue(123) -> /venues/123
-  getVenue(id) {
+  getVenue(_id) {
     return http.get(`venues/${_id}`);
   }
 
