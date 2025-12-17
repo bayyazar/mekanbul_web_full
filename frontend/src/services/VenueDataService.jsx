@@ -16,7 +16,7 @@ class VenueDataService {
   // id: Mekan ID'si
   // Örnek: getVenue(123) -> /venues/123
   getVenue(id) {
-    return http.get(`venues/${id}`);
+    return http.get(`venues/${_id}`);
   }
 
   // Yeni mekan ekle - Kimlik doğrulama gerektirir
