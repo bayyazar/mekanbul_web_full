@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom"; // URL parametrelerini almak için
 import venuesData from "../data/venues.json"; // Mekan verileri (JSON dosyasından)
 import { useSelector, useDispatch } from "react-redux";
 import venueDataService from "../services/VenueDataService";
-
+import Modal from "./Modal";
 // Mekan detay sayfası bileşeni - Seçilen mekanın tüm bilgilerini gösterir
 const VenueDetail = () => {
   // URL'den mekan ID'sini al (örn: /venue/123 -> id = "123")
