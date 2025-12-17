@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // Mekan detay sayfası bileşeni - Seçilen mekanın tüm bilgilerini gösterir
 const VenueDetail = () => {
   // URL'den mekan ID'sini al (örn: /venue/123 -> id = "123")
-  const { id } = useParams();
+  const { _id } = useParams();
   
   const dispatch = useDispatch();
   const venues = useSelector(state => state.data);
@@ -23,7 +23,7 @@ const VenueDetail = () => {
   const allVenues = venuesData;
   React.useEffect(() => {
     dispatch({type: "FETCH_INIT"});
-    venueDataService.getVenue(id)
+    venueDataService.getVenue(_id)
     .then((response) => {
       dispatch({type: "FETCH_SUCCESS", payload: response.data});
     }).catch(() => {
@@ -33,7 +33,7 @@ const VenueDetail = () => {
   
   // URL'den gelen id'ye göre mekanı bul
   // id string olarak gelir, bu yüzden Number() ile sayıya çeviriyoruz
-  const venue = allVenues.find(v => v.id === Number(id)) || allVenues[0];
+  const venue = allVenues.find(v => v._id === Number(_id)) || allVenues[0];
   
   // Eğer mekan bulunamazsa hata mesajı göster
   if (!venue) {
