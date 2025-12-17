@@ -5,7 +5,7 @@ import Header from "./Header"; // Başlık bileşeni
 import React, { use, useState } from "react"; // React ve state hook'u
 import venuesData from "../data/venues.json"; // Mekan verileri (JSON dosyasından)
 import { useSelector, useDispatch } from "react-redux";
-import VenueDataService from "../services/venue.service";
+import VenueDataService from "../services/VenueDataService";
 import Venue from "./Venue";
 // Ana sayfa bileşeni
 const Home = () => {
