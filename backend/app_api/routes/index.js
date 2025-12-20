@@ -1,8 +1,8 @@
-var express= require('express');
+var express= require("express");
 var router=express.Router();
 var venueController=require("../controller/VenueController");
 var commentController=require("../controller/CommentController");
-const ctrlAuth = require('../controller/Auth');
+const ctrlAuth = require("../controller/Auth");
 
 
 

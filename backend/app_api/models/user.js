@@ -45,4 +45,4 @@ user.methods.generateToken = function() {
         { expiresIn: "1h" }
     );
 };
-mongoose.model("User", user, "users");
+mongoose.model("user", user, "users");
