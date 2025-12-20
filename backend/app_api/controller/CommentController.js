@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Venue = mongoose.model("venue");
+var User = mongoose.model("user");
 
 const createResponse = function (res, status, content) {
     res.status(status).json(content);
@@ -56,7 +57,7 @@ const getUser = async (req, res, callback) => {
     if(req.auth && req.auth.email){
         try{
             await User.findOne({email: req.auth.email}).then(function(user){
-                callback(user.name);
+                callback(req,res,user.name);
             })
         }catch(error){
             createResponse(res, 400, {status: "Kullanıcı bulunamadı"});
