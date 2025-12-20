@@ -15,8 +15,7 @@ app.use(passport.initialize());
 
 app.use((err, req, res, next) => {
     if(err.name ==  "UnauthorizedError"){
-        res.status(401)
-        .json({ status: "Doğrulama tokeni bulunamadı!"});
+        res.status(401).json({ status: "Doğrulama tokeni bulunamadı!"});
     }
 });
 
