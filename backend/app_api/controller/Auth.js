@@ -1,6 +1,6 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = mongoose.model('user');
 
 const createResponse = (res, status, content) => {
     res.status(status).json(content);
