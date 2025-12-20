@@ -28,7 +28,7 @@ router
 
 router
 .route("/venues/:venueid/comments")
-.post(auth, commentController.addComment)
+.post(auth, commentController.addComment);
 
 router
 .route("/venues/:venueid/comments/:commentid")
