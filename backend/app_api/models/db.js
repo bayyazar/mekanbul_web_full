@@ -21,3 +21,4 @@ process.on("SIGINT",function(){
     process.exit(0);
 });
 require("./venue");
+require("./user");
