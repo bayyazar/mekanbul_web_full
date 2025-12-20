@@ -18,7 +18,7 @@ const signUp = async (req, res) => {
     user.setPassword(req.body.password);
     try{
         await user.save().then((newUser) => {
-            let generatedToken = newUser.generatedToken();
+            let generatedToken = newUser.generateToken();
             createResponse(res, 200, {token: generatedToken});
         });
     }catch(error){
@@ -33,7 +33,7 @@ const login =async (req, res) => {
     }
     passport.authenticate("local", (currentUser) => {
         if(currentUser){
-            let generatedToken = currentUser.generatedToken();
+            let generatedToken = currentUser.generateToken();
             createResponse(res, 200, {token: generatedToken});
         }else{
             createResponse(res, 400, 
