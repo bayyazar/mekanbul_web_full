@@ -3,7 +3,7 @@ var Venue = mongoose.model("venue");
 
 const createResponse = function (res, status, content) {
     res.status(status).json(content);
-}
+};
 
 var calculateLastRating = function (incomingVenue, isDeleted){
     var i,
@@ -34,34 +34,54 @@ var updateRating = function (venueid, isDeleted){
     });
 };
 
-var createComment = function (req, res, incomingVenue) {
+var createComment = function (req, res, incomingVenue, author) {
     try {
-        incomingVenue.comments.push(req.body);
+        incomingVenue.comments.push({
+            author: author,
+            rating: req.body.rating,
+            text: req.body.text
+        });
 
         incomingVenue.save().then(function(venue){
-            var comments = venue.comments;
-            var comment = comments[comments.length-1];
-            updateRating(venue._id, false);
-            createResponse(res, "201", comment);
+            var comment;
+            updateRating(venue._id);
+            comment = venue.comments[venue.comments.length - 1];
+            createResponse(res, 201, comment);
         });
     } catch (error) {
-        createComment(res, "400", error);
+        createComment(res, 400, {status: "Yorum oluşturulamadı"});
     }     
+};
+const getUser = async (req, res, callback) => {
+    if(req.auth && req.auth.email){
+        try{
+            await User.findOne({email: req.auth.email}).then(function(user){
+                callback(user.name);
+            })
+        }catch(error){
+            createResponse(res, 400, {status: "Kullanıcı bulunamadı"});
+
+        }
+    }else{
+        createResponse(res,401, {status: "Token girilemedi."});
+    }
 };
 
 const addComment = async function (req, res) {
     try {
-        await Venue.findById(req.params.venueid)
-        .select("comments")
-        .exec()
-        .then((incomingVenue) => {
-            createComment(req, res, incomingVenue);
+        await getUser(req, res, (req,res,userName)=>{
+            Venue.findById(req.params.venueid)
+            .select("comments")
+            .exec()
+            .then((incomingVenue) => {
+                createComment(req, res, incomingVenue, userName);
+            });
         });
     } catch (error) {
         createResponse(res, 400, {status: "Yorum ekleme basarisiz"});
     };
     //createResponse(res, 200, { status: "başarılı" });
-}
+};
 const getComment = async function (req, res) {
     try {
         await Venue.findById(req.params.venueid).select("name comments").exec().then(function (venue) {
