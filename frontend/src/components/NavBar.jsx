@@ -32,6 +32,9 @@ function NavBar() {
             <li>
               <NavLink to={"about"}>Hakkında</NavLink> 
             </li>
+            <li>
+              <NavLink to={"admin"}>Giriş</NavLink>
+            </li>
           </ul>
         </div>
       </div>

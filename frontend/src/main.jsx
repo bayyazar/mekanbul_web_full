@@ -14,6 +14,13 @@ import VenueDetail from "./components/VenueDetail"; // Mekan detay sayfası
 import AddComment from "./components/AddComment"; // Yorum ekleme sayfası
 import About from "./components/About"; // Hakkında sayfası
 import PageNotFound from "./components/PageNotFound"; // 404 sayfa bulunamadı
+import Admin from "./components/Admin"; // Admin giriş sayfası
+
+import Register from "./components/Register"; // Kayıt sayfası
+import Login from "./components/Login"; // Giriş sayfası
+import AdminPaneli from "./components/AdminPaneli"; // Yönetim Paneli
+import AddVenue from "./components/AddVenue";     // Mekan Ekleme
+import UpdateVenue from "./components/UpdateVenue";
 
 
 // React Router bileşenlerini içe aktar (sayfa yönlendirme için)
@@ -57,8 +64,32 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           
           {/* Hakkında sayfası - "/about" yolu */}
           <Route path="about" element={<About />} />
+          {/* --- ADMIN ROTALARI --- */}
+          
+          {/* 1. Giriş Sayfası: /admin */}
+          <Route path="admin" element={<Admin />} />
+          
+          {/* 2. Yönetim Paneli: /admin/panel (Korumalı) */}
+          <Route path="admin/panel" element={<AdminPaneli />} />
+          
+          {/* 3. Mekan Ekleme: /admin/addvenue */}
+          <Route path="admin/addvenue" element={<AddVenue />} />
+          
+          {/* 4. Mekan Güncelleme: /admin/updatevenue/123 (ID parametresi alır) */}
+          <Route path="admin/updatevenue/:id" element={<UpdateVenue />} />
+
+          {/* ---------------------- */}
           
           {/* Bulunamayan tüm sayfalar için 404 */}
+          
+          
+          {/* /register adresine gidince Kayıt sayfası açılır */}
+          <Route path="register" element={<Register />} /> 
+          
+          {/* /login adresine gidince Giriş sayfası açılır */}
+          <Route path="login" element={<Login />} />
+          
+
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

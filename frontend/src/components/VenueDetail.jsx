@@ -123,45 +123,30 @@ const VenueDetail = () => {
             {/* Bootstrap grid: col-xs-12 (mobilde tam genişlik) */}
             <div className="col-xs-12 ">
               <div className="panel panel-primary">
-                <div className="panel-heading ">
-                  {/* Yorum ekleme butonu - AddComment sayfasına yönlendirir */}
-                  {/* Bootstrap buton: btn (temel buton), btn-default (gri renk), pull-right (sağa hizala) */}
-                  {/* 
-                    state prop'u: React Router'da sayfalar arası veri göndermek için kullanılır
-                    Bu state, AddComment sayfasına mekan adını gönderir
-                    AddComment sayfasında useLocation() hook'u ile bu veriye erişilir:
-                    const location = useLocation();
-                    location.state.name -> "Bilgisayar Mühendisliği" değerini döndürür
-                    Bu sayede AddComment sayfası, hangi mekana yorum yapıldığını bilir
-                    ve sayfa başlığında mekan adını gösterebilir
-                  */}
-                  {/* 
-                    Template Literal (Template String) kullanımı:
-                    Backtick (`) ile başlayan string, JavaScript'te template literal'dir
-                    ${id} -> Değişken interpolasyonu (değişken değerini string'e ekler)
-                    
-                    Örnek:
-                    - Eğer id = 123 ise -> to="/venue/123/comment/new"
-                    - Eğer id = 456 ise -> to="/venue/456/comment/new"
-                    
-                    id değeri useParams() hook'u ile URL'den alınır:
-                    const { id } = useParams(); // /venue/123 -> id = "123"
-                    
-                    Bu sayede dinamik URL oluşturulur ve her mekan için
-                    kendi yorum ekleme sayfasına yönlendirilir
-                  */}
-                  <NavLink
-                    className="btn btn-default pull-right"
-                    to={`/venue/${id}/comment/new`}
-                    state={{ name: venue.name }}
-                  >
-                    Yorum Ekle{" "}
-                  </NavLink>
-                  <h2 className="panel-title ">Yorumlar</h2>
-                </div>
-                <div className="panel-body ">
-                  {/* Yorum listesi - Tüm yorumları göster */}
-                  <CommentList commentList={venue.comments || []} />
+                <div className="panel-heading">
+                  {/* --- DEĞİŞİKLİK BAŞLANGICI --- */}
+                  {/* localStorage'da 'user' var mı diye bakıyoruz */}
+                  {localStorage.getItem("user") ? (
+                    // DURUM 1: Kullanıcı Giriş Yapmış -> Yorum Ekle Butonunu Göster
+                    <NavLink
+                      className="btn btn-primary pull-right" // Dikkat çeksin diye btn-primary yaptım
+                      to={`/venue/${id}/comment/new`}
+                      state={{ name: venue.name }}
+                    >
+                      Yorum Ekle
+                    </NavLink>
+                  ) : (
+                    // DURUM 2: Kullanıcı Giriş Yapmamış -> Giriş Yap Butonunu Göster
+                    <NavLink
+                      className="btn btn-default pull-right"
+                      to="/login"
+                    >
+                      Yorum Yapmak İçin Giriş Yap
+                    </NavLink>
+                  )}
+                  {/* --- DEĞİŞİKLİK BİTİŞİ --- */}
+
+                  <h2 className="panel-title">Yorumlar</h2>
                 </div>
               </div>
             </div>

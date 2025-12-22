@@ -15,16 +15,20 @@ const auth = jwt.expressjwt({
 router.post(`/signup`, ctrlAuth.signUp);
 router.post(`/login`, ctrlAuth.login);
 
-router
-.route("/venues")
-.get(venueController.listVenues)
-.post(venueController.addVenue);
+const isAdmin = (req, res, next) => {
+    // Auth middleware'inden sonra çalışır, req.payload doludur
+    if (req.payload && req.payload.role === 'admin') {
+        next(); // Devam et
+    } else {
+        return res.status(403).json({ message: "Bu işlem için admin yetkisi gerekiyor!" });
+    }
+};
 
-router
-.route("/venues/:venueid")
-.get(venueController.getVenue)
-.put(venueController.updateVenue)
-.delete(venueController.deleteVenue);
+// ROTALARI GÜNCELLE (Örnek)
+// Sadece admin mekan silebilir, ekleyebilir veya güncelleyebilir
+router.post('/venues', auth, isAdmin, ctrlVenues.venuesCreate);
+router.put('/venues/:venueid', auth, isAdmin, ctrlVenues.venuesUpdateOne);
+router.delete('/venues/:venueid', auth, isAdmin, ctrlVenues.venuesDeleteOne);
 
 router
 .route("/venues/:venueid/comments")
