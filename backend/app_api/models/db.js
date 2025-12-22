@@ -5,7 +5,7 @@ var mongoose=require("mongoose");
 require("dotenv").config();
 var dbURI = process.env.MONGODB_URI;
 
-mongoose.connect(dbURI);
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("connected",function(){
     console.log("Mongoose "+dbURI+" adresindeki veritabanına bağlandı.");
 });
