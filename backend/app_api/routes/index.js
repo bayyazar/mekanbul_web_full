@@ -1,4 +1,4 @@
-const jwt =require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 var express= require("express");
 var router=express.Router();
 var venueController=require("../controller/VenueController");
@@ -9,10 +9,9 @@ if (!process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined");
 }
 
-const auth = jwt.expressjwt({
+const auth = jwt({
     secret: process.env.JWT_SECRET,
-    userProperty: "payload",
-    algorithms: ["sha1", "RS256", "HS256"]
+    algorithms: ["HS256"]
     
 });
 
@@ -20,12 +19,12 @@ router.post(`/signup`, ctrlAuth.signUp);
 router.post(`/login`, ctrlAuth.login);
 
 const isAdmin = (req, res, next) => {
-    // Auth middleware'inden sonra çalışır, req.payload doludur
-    if (req.payload && req.payload.role === 'admin') {
-        next(); // Devam et
-    } else {
-        return res.status(403).json({ message: "Bu işlem için admin yetkisi gerekiyor!" });
-    }
+  if (req.auth && req.auth.role === "admin") {
+    return next();
+  }
+  return res
+    .status(403)
+    .json({ message: "Bu işlem için admin yetkisi gerekiyor!" });
 };
 
 // ROTALARI GÜNCELLE (Örnek)
