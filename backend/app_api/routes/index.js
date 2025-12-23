@@ -5,6 +5,7 @@ var venueController=require("../controller/VenueController");
 var commentController=require("../controller/CommentController");
 const ctrlAuth = require("../controller/Auth");
 
+
 const auth = jwt.expressjwt({
     secret: process.env.JWT_SECRET,
     userProperty: "payload",
@@ -26,9 +27,9 @@ const isAdmin = (req, res, next) => {
 
 // ROTALARI GÜNCELLE (Örnek)
 // Sadece admin mekan silebilir, ekleyebilir veya güncelleyebilir
-router.post('/venues', auth, isAdmin, ctrlVenues.venuesCreate);
-router.put('/venues/:venueid', auth, isAdmin, ctrlVenues.venuesUpdateOne);
-router.delete('/venues/:venueid', auth, isAdmin, ctrlVenues.venuesDeleteOne);
+router.post('/venues', auth, isAdmin, venueController.addVenue);
+router.put('/venues/:venueid', auth, isAdmin, venueController.updateVenue);
+router.delete('/venues/:venueid', auth, isAdmin, venueController.deleteVenue);
 
 router
 .route("/venues/:venueid/comments")
