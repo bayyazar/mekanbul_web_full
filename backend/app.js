@@ -13,11 +13,7 @@ require('./app_api/config/passport');
 var app = express();
 app.use(passport.initialize());
 
-app.use((err, req, res, next) => {
-    if(err.name ==  "UnauthorizedError"){
-        res.status(401).json({ status: "Doğrulama tokeni bulunamadı!"});
-    }
-});
+
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -34,5 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/api", apiRoute);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use((err, req, res, next) => {
+    if(err.name ==  "UnauthorizedError"){
+        res.status(401).json({ status: "Doğrulama tokeni bulunamadı!"});
+    }
+});
 
 module.exports = app;
