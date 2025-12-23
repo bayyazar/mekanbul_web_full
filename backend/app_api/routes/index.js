@@ -5,6 +5,9 @@ var venueController=require("../controller/VenueController");
 var commentController=require("../controller/CommentController");
 const ctrlAuth = require("../controller/Auth");
 
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined");
+}
 
 const auth = jwt.expressjwt({
     secret: process.env.JWT_SECRET,
