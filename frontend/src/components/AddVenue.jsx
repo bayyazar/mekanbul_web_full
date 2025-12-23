@@ -43,7 +43,8 @@ function AddVenue() {
       };
 
       // POST isteği gönder
-      await axios.post("http://localhost:3000/api/venues", payload, {
+      const apiUrl = import.meta.env.MONGODB_URI || "http://localhost:3000";
+      await axios.post(`${apiUrl}`, payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
