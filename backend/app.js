@@ -6,7 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-require('./app_api/models/db');
+const connectDB = require('./app_api/models/db');
+connectDB();
 var apiRoute= require('./app_api/routes/index');
 const passport = require('passport');
 require('./app_api/config/passport');
