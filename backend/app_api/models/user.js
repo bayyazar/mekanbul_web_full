@@ -41,7 +41,7 @@ user.methods.generateToken = function() {
             name: this.name,
             role: this.role
         },
-        "process.env.JWT_SECRET",
+        process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
 };
